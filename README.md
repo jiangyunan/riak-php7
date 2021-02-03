@@ -1,3 +1,19 @@
+# Riak Client for PHP 修改版
+支持 PHP7以上, protobuf修改为 Google 官方protobuf
+
+## Installation
+### Dependencies
+- PHP 5.4+
+- PHP Extensions: curl, json and openssl [protobuf](https://pecl.php.net/package/protobuf)
+- Riak 2.1+
+### install
+1. 安装basho/riak
+  ```console
+  $ composer require "basho/riak": "3.0.*"
+  ```
+2. 覆盖basho/riak 下所有文件
+
+
 # Riak Client for PHP
 
 [![Packagist](https://img.shields.io/packagist/v/basho/riak.svg?maxAge=2592000)](https://packagist.org/packages/basho/riak)
