@@ -6,12 +6,6 @@
 - PHP 5.4+
 - PHP Extensions: curl, json and openssl [protobuf](https://pecl.php.net/package/protobuf)
 - Riak 2.1+
-### install
-1. 安装basho/riak
-  ```console
-  $ composer require "basho/riak": "3.0.*"
-  ```
-2. 覆盖basho/riak 下所有文件
 
 
 # Riak Client for PHP
@@ -24,12 +18,19 @@ latency. This library communicates with Riak's HTTP interface using the cURL ext
 To see other clients available for use with Riak visit our [Documentation Site](http://docs.basho.com/riak/latest/dev/using/libraries)
 
 
-1. [Installation](#installation)
-1. [Documentation](#documentation)
-1. [Contributing](#contributing)
-	* [An honest disclaimer](#an-honest-disclaimer)
-1. [Roadmap](#roadmap)
-1. [License and Authors](#license-and-authors)
+1. [Riak Client for PHP 修改版](#riak-client-for-php-修改版)
+   1. [Installation](#installation)
+      1. [Dependencies](#dependencies)
+2. [Riak Client for PHP](#riak-client-for-php)
+   1. [Installation](#installation-1)
+      1. [Dependencies](#dependencies-1)
+      2. [Composer Install](#composer-install)
+   2. [Documentation](#documentation)
+      1. [Example Usage](#example-usage)
+   3. [Contributing](#contributing)
+      1. [An honest disclaimer](#an-honest-disclaimer)
+   4. [Roadmap](#roadmap)
+   5. [License and Authors](#license-and-authors)
 
 
 ## Installation
