@@ -710,7 +710,9 @@ class Pb extends Api implements ApiInterface
         $content = new Api\Pb\Message\RpbContent();
         $content->setValue($command->getEncodedData());
         $content->setContentType($command->getObject()->getContentType());
-        $content->setCharset($command->getObject()->getCharset());
+        if ($command->getObject()->getCharset()) {
+            $content->setCharset($command->getObject()->getCharset());
+        }
         $content->setContentEncoding($command->getObject()->getContentEncoding());
 
         // append secondary indexes to the Content object
