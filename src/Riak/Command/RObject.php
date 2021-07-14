@@ -42,7 +42,6 @@ abstract class RObject extends Command
     public function getEncodedData()
     {
         $data = $this->getData();
-
         if (in_array($this->object->getContentType(), ['application/json', 'text/json'])) {
             return json_encode($data);
         } elseif (in_array($this->object->getContentEncoding(), ['base64'])) {
@@ -50,8 +49,8 @@ abstract class RObject extends Command
         } elseif (in_array($this->object->getContentEncoding(), ['binary','none'])) {
             return $data;
         }
-
-        return rawurlencode($data);
+        
+        return $data;
     }
 
     public function getDecodedData($data, $contentType)
@@ -65,7 +64,7 @@ abstract class RObject extends Command
             return json_decode($data, $decodeAsAssociative);
         }
 
-        return rawurldecode($data);
+        return $data;
     }
 
     public function getData()
