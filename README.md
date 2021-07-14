@@ -1,6 +1,77 @@
 # Riak Client for PHP 修改版
 支持 PHP7以上, protobuf修改为 Google 官方protobuf
 
+## 示例
+
+### 对象
+
+```php
+use Basho\Riak;
+use Basho\Riak\Node;
+use Basho\Riak\Command;
+
+$node = (new node\Builder)
+    ->atHost('127.0.0.1')
+    ->onPort(8087)
+    ->build();
+$riak = new Riak([$node], [], new Riak\Api\Pb());
+$bucket = new Riak\Bucket("carnoc");
+
+$key = "date.txt";
+$location = new Riak\Location($key, $bucket);
+```
+
+### 写入
+
+对写入、读取的内容不再编码，无需设置`setContentEncoding`
+
+https://github.com/jiangyunan/riak-php7/blob/main/src/Riak/Command/RObject.php#L42
+
+```php
+$dateString = Date("H:i:s");
+
+$dataObject = new Riak\RObject($dateString);
+$dataObject->setContentType("text/html");
+
+$command = (new Command\Builder\StoreObject($riak))
+    ->withObject($dataObject)
+    ->atLocation($location);
+
+$store = new Command\Object\Store($command);
+$response = $store->execute();
+```        
+
+### 读取
+
+```php
+$command = (new Command\Builder\FetchObject($riak))
+    ->atLocation($location)
+    ->build();
+$response = $command->execute();
+
+if($response->getCode() == 200){
+    $dataObject = $response->getObject();
+    $contentType = $dataObject->getContentType();
+    $data = [
+        "type" => $contentType,
+        "data" => $dataObject->getData(),
+    ];
+} else {
+    $data = [];
+}
+```
+
+### 删除
+
+```php
+$command = (new Command\Builder\DeleteObject($riak))
+    ->atLocation($location);
+$delete = new Command\Object\Delete($command);
+$response = $delete->execute();
+
+return ($response->getCode() == 204);
+```
+
 ## Installation
 ### Dependencies
 - PHP 5.4+
