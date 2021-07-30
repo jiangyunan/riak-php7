@@ -3,6 +3,8 @@
 
 ## 示例
 
+官方示例，https://docs.riak.com/riak/kv/latest/developing/getting-started/php/crud-operations/index.html
+
 ### 对象
 
 ```php
@@ -31,23 +33,22 @@ https://github.com/jiangyunan/riak-php7/blob/main/src/Riak/Command/RObject.php#L
 $dateString = Date("H:i:s");
 
 $dataObject = new Riak\RObject($dateString);
-$dataObject->setContentType("text/html");
+$dataObject->setContentType("text/plain");
 
-$command = (new Command\Builder\StoreObject($riak))
+$storeCommand = (new Command\Builder\StoreObject($riak))
     ->withObject($dataObject)
-    ->atLocation($location);
-
-$store = new Command\Object\Store($command);
-$response = $store->execute();
+    ->atLocation($location)
+    ->build();
+$response = $storeCommand->execute();
 ```        
 
 ### 读取
 
 ```php
-$command = (new Command\Builder\FetchObject($riak))
+$fetchCommand = (new Command\Builder\FetchObject($riak))
     ->atLocation($location)
     ->build();
-$response = $command->execute();
+$response = $fetchCommand->execute();
 
 if($response->getCode() == 200){
     $dataObject = $response->getObject();
@@ -64,10 +65,10 @@ if($response->getCode() == 200){
 ### 删除
 
 ```php
-$command = (new Command\Builder\DeleteObject($riak))
-    ->atLocation($location);
-$delete = new Command\Object\Delete($command);
-$response = $delete->execute();
+$deleteCommand = (new Command\Builder\DeleteObject($riak))
+    ->atLocation($location)
+    ->build();
+$response = $deleteCommand->execute();
 
 return ($response->getCode() == 204);
 ```
